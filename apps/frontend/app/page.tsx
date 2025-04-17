@@ -63,10 +63,5 @@ export default function Home() {
       </div>
     );
 
-  return (
-    <>
-      <h1>Connecter vous via OTP Supabase</h1>
-      <AuthForm />
-    </>
-  );
+  return <AuthForm />;
 }

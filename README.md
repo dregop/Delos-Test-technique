@@ -59,10 +59,28 @@ apps/frontend/
 - Mise en place des Dockerfile frontend/backend
 - Lancement de Supabase en local via la CLI
 - Configuration des services dans `docker-compose.yml`
+- Création de l’authentification via OTP email
+- Redirection automatique vers la page /sport/rugby si connecté
+- Intégration de la sidebar conditionnelle selon l'état de connexion
+- Mise en place du chatbot multi-sport (pages dynamiques /sport/[slug])
+- Réception streaming mot par mot de la réponse depuis le backend FastAPI
+- Création d’un endpoint /chat pour streamer une réponse différente par sport
+- Sauvegarde des échanges (question, réponse, user_id, sport) dans Supabase
 
 ---
 
-## 🐳 Lancer l'application avec Docker
+## 💻 Lancer l'application sans Docker
+
+Assure-toi que `supabase start` tourne en parallèle et à la racine :
+
+```bash
+pnpm install
+pnpm dev
+```
+
+---
+
+## 🐳 Lancer l'application avec Docker (Pas encore fonctionnel)
 
 ### 🧱 Prérequis
 
@@ -89,14 +107,3 @@ docker-compose up --build
 - Frontend : http://localhost:3000
 - Backend : http://localhost:8000
 - Supabase Studio : http://localhost:54323/
-
----
-
-## 💻 Lancer l'application sans Docker
-
-Assure-toi que `supabase start` tourne en parallèle
-
-```bash
-pnpm install
-pnpm dev
-```

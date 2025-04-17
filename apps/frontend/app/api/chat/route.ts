@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
 
   console.log("authHeader", authHeader);
 
-  const response = await fetch(`http://localhost:8000/chat?sport=${sport}`, {
+  const response = await fetch(`${process.env.API_BASE_URL}/chat?sport=${sport}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
