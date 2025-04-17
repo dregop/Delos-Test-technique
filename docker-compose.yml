@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: apps/frontend/Dockerfile
+    ports:
+      - '3000:3000'
+    depends_on:
+      - backend
+    env_file:
+      - apps/frontend/.env.local
+
+  backend:
+    build:
+      context: ./apps/backend
+      dockerfile: Dockerfile
+    ports:
+      - '8000:8000'
+    env_file:
+      - apps/backend/.env.local

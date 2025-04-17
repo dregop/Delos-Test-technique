@@ -1,84 +1,102 @@
-# Turborepo starter
+# 🧪 Fullstack Test App — Next.js + FastAPI + Supabase (Delos)
 
-This Turborepo starter is maintained by the Turborepo core team.
+Ce projet est une application web fullstack pour un test technique Delos. Il utilise :
 
-## Using this example
+- **Next.js + TypeScript** (frontend)
+- **FastAPI + Python** (backend)
+- **Supabase** en local via `supabase start` (auth + base de données)
+- **pnpm + Turborepo** pour la gestion du monorepo
 
-Run the following command:
+---
 
-```sh
-npx create-turbo@latest
-```
-
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
+## 🗂️ Structure du projet
 
 ```
-cd my-turborepo
-pnpm build
+delos/
+├── apps/
+│   ├── frontend/        # Next.js
+│   └── backend/         # FastAPI
+├── .env                 # Variables globales
+├── supabase/
+├── docker-compose.yml
+├── pnpm-workspace.yaml
+└── README.md
+
+Frontend :
+
+apps/frontend/
+    /app
+    ├── layout.tsx          # Layout principal avec Auth + Sidebar
+    ├── page.tsx            # Page d’accueil ou redirection vers un sport
+    ├── sport
+    │   └── [slug]
+    │       ├── page.tsx    # ChatBot pour le sport sélectionné
+    └── admin
+        └── page.tsx        # Stats d'utilisation
+
+    /components
+    ├── Sidebar.tsx         # Navigation entre sports
+    ├── ChatBox.tsx         # Composant principal de chat
+    ├── Message.tsx         # Affiche une ligne de dialogue
+    └── AdminStats.tsx      # Tableau de stats des utilisateurs (admin)
+
+    /lib
+    ├── supabase.ts         # Supabase client initialisé
+    └── api.ts              # Fonctions de requêtes vers l’API FastAPI
+├── store/
+├── styles/
+├── public/
+├── package.json
+└── tsconfig.json
 ```
 
-### Develop
+---
 
-To develop all apps and packages, run the following command:
+## ✅ Étapes réalisées
 
+- Initialisation du monorepo avec `pnpm create turbo@latest`
+- Suppression des packages inutiles (`eslint-config`, `typescript-config`)
+- Mise en place des Dockerfile frontend/backend
+- Lancement de Supabase en local via la CLI
+- Configuration des services dans `docker-compose.yml`
+
+---
+
+## 🐳 Lancer l'application avec Docker
+
+### 🧱 Prérequis
+
+- Docker Desktop
+- Supabase CLI : `npm install -g supabase`
+- pnpm : `npm install -g pnpm`
+
+### ⚙️ Étapes
+
+#### 1. Lancer Supabase
+
+```bash
+supabase start
 ```
-cd my-turborepo
+
+#### 2. Lancer frontend + backend
+
+```bash
+docker-compose up --build
+```
+
+### 🔗 URLs par défaut
+
+- Frontend : http://localhost:3000
+- Backend : http://localhost:8000
+- Supabase Studio : http://localhost:54323/
+
+---
+
+## 💻 Lancer l'application sans Docker
+
+Assure-toi que `supabase start` tourne en parallèle
+
+```bash
+pnpm install
 pnpm dev
 ```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/docs/reference/command-line-reference)
