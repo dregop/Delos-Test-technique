@@ -15,28 +15,34 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="w-48 bg-red-600 text-white min-h-screen p-4 flex flex-col justify-between">
-      <div>
-        <h2 className="text-xl font-bold mb-4">L’Équipe Bot</h2>
-        <nav className="space-y-2">
+    <aside className="w-60 min-h-screen bg-white border-r border-gray-200 text-[#1d1d1b] flex flex-col justify-between font-sans">
+      <div className="p-6">
+        <h2 className="text-2xl font-extrabold text-[#d61e00] mb-6 tracking-tight">L’Équipe Bot</h2>
+        <nav className="space-y-4 text-base font-medium">
           {sports.map((s) => (
-            <Link key={s} href={`/sport/${s}`} className="block hover:underline capitalize">
+            <Link
+              key={s}
+              href={`/sport/${s}`}
+              className="block hover:text-[#d61e00] capitalize transition-colors duration-200"
+            >
               {s}
             </Link>
           ))}
-          <hr className="my-4" />
-          <Link href="/admin" className="block hover:underline">
+          <hr className="my-6 border-t border-gray-300" />
+          <Link href="/admin" className="block hover:text-[#d61e00] transition-colors duration-200">
             Admin
           </Link>
         </nav>
       </div>
 
-      <button
-        onClick={handleLogout}
-        className="mt-6 bg-white text-red-600 px-3 py-1 rounded hover:bg-gray-100"
-      >
-        Se déconnecter
-      </button>
+      <div className="p-6">
+        <button
+          onClick={handleLogout}
+          className="w-full bg-[#d61e00] text-white font-semibold py-2 px-4 rounded hover:bg-[#bb1a00] transition-colors duration-200"
+        >
+          Se déconnecter
+        </button>
+      </div>
     </aside>
   );
 }
