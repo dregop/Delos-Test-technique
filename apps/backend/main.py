@@ -6,6 +6,7 @@ import asyncio
 import httpx
 import os
 from dotenv import load_dotenv
+from collections import Counter
 
 load_dotenv()
 
@@ -88,3 +89,35 @@ async def chat_endpoint(
         )
 
     return StreamingResponse(word_stream(), media_type="text/plain")
+
+
+@app.get("/admin/stats")
+async def get_question_stats(authorization: Optional[str] = Header(None)):
+    if not authorization:
+        raise HTTPException(status_code=401, detail="Missing token")
+
+    token = authorization.replace("Bearer ", "")
+    user_id = await get_user_id_from_token(token)
+    if not user_id:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+    async with httpx.AsyncClient() as client:
+        res = await client.get(
+            f"{SUPABASE_URL}/rest/v1/messages?select=user_id",
+            headers={
+                "apikey": SUPABASE_KEY,
+                "Authorization": f"Bearer {SUPABASE_KEY}",
+            },
+        )
+
+    if res.status_code != 200:
+        print("🛑 Supabase error:", res.text)
+        raise HTTPException(status_code=500, detail="Error fetching stats")
+
+    messages = res.json()
+
+
+    user_counts = Counter([msg["user_id"] for msg in messages])
+    results = [{"user_id": uid, "question_count": count} for uid, count in user_counts.items()]
+    print("📊 Results:", results)
+    return results
