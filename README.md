@@ -102,6 +102,8 @@ supabase start
 docker-compose up --build
 ```
 
+---
+
 ### 🔗 URLs par défaut
 
 - Frontend : http://localhost:3000
